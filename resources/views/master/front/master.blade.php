@@ -26,7 +26,7 @@
     </button>
     <div class="container">
         <!-- begin logo -->
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="{{route('home')}}">
             <img src="{{asset('/')}}website/img/logo.png" alt="">
         </a>
         <!-- end logo -->
@@ -37,7 +37,7 @@
                     <a class="nav-link" href="{{route('home')}}">Stories <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('post')}}">Post</a>
+                    <a class="nav-link" href="">Post</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('author')}}">Author</a>

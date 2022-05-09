@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,18 +21,32 @@ use App\Http\Controllers\CategoryController;
 //    return view('welcome');
 //});
 
-Route::get('/', [WebController::class, 'index'])->name('home');
-Route::get('/post', [WebController::class, 'post'])->name('post');
-Route::get('/author', [WebController::class, 'author'])->name('author');
+Route::controller(WebController::class)->group(function () {
+    Route::get('/', 'index')->name('home');
+    Route::get('/post/{id}', 'post')->name('post');
+    Route::get('/author', 'author')->name('author');
+});
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/add-category', [CategoryController::class, 'index'])->name('category.add');
-    Route::post('/new-category', [CategoryController::class, 'create'])->name('category.new');
-    Route::get('/manage-category', [CategoryController::class, 'manage'])->name('category.manage');
-    Route::get('/edit-category/{id}', [CategoryController::class, 'edit'])->name('category.edit');
-    Route::post('/update-category/{id}', [CategoryController::class, 'update'])->name('category.update');
-    Route::get('/delete-category/{id}', [CategoryController::class, 'delete'])->name('category.delete');
+    Route::controller(CategoryController::class)->group(function () {
+        Route::get('/add-category', 'index')->name('category.add');
+        Route::post('/new-category', 'create')->name('category.new');
+        Route::get('/manage-category', 'manage')->name('category.manage');
+        Route::get('/edit-category/{id}', 'edit')->name('category.edit');
+        Route::post('/update-category/{id}', 'update')->name('category.update');
+        Route::get('/delete-category/{id}', 'delete')->name('category.delete');
+    });
 
+    Route::controller(BlogController::class)->group(function () {
+        Route::get('/add-blog', 'index')->name('blog.add');
+        Route::post('/new-blog', 'create')->name('blog.new');
+        Route::get('/manage-blog', 'manage')->name('blog.manage');
+        Route::get('/detail-blog-info/{id}', 'detail')->name('blog.detail');
+        Route::get('/update-blog-status/{id}', 'updateStatus')->name('blog.status');
+        Route::get('/edit-blog/{id}', 'edit')->name('blog.edit');
+        Route::post('/update-blog/{id}', 'update')->name('blog.update');
+        Route::get('/delete-blog/{id}', 'delete')->name('blog.delete');
+    });
 });

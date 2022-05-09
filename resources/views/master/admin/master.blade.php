@@ -145,8 +145,8 @@
                             <span>Blog Module</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="">Add Blog</a></li>
-                            <li><a href="">Manage Blog</a></li>
+                            <li><a href="{{route('blog.add')}}">Add Blog</a></li>
+                            <li><a href="{{route('blog.manage')}}">Manage Blog</a></li>
                         </ul>
                     </li>
 
